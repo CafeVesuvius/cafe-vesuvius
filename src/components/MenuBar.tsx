@@ -6,17 +6,17 @@ import Typography from '@mui/material/Typography';
 const images = [
     {
         url: 'src/assets/MenuImages/Caesar_Salad.jpg',
-        title: 'Breakfast',
+        title: 'Middagsmad',
         width: '40%',
     },
     {
         url: '/src/assets/MenuImages/Vesuvius_Burger.jpg',
-        title: 'Burgers',
+        title: 'Vesuvius Burger',
         width: '30%',
     },
     {
         url: '/src/assets/MenuImages/Pasta_Beef.jpg',
-        title: 'Camera',
+        title: 'Pastaretter',
         width: '30%',
     },
 ];

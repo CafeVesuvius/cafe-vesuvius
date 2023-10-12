@@ -18,12 +18,12 @@ function App() {
                                 <div className="col-2 d-flex justify-content-end">
                                     <b>Café Vesuvius</b>
                                 </div>
-                                <div className="col-10 d-flex">
+                                <div className="col-10 d-flex align-items-center">
                                     <Stack direction="row" spacing={2}>
-                                        <p>Om os</p>
-                                        <p>Menukort</p>
-                                        <p>Reservation</p>
-                                        <p>Kontakt</p>
+                                        <p className="nav__item">Om os</p>
+                                        <p className="nav__item">Menukort</p>
+                                        <p className="nav__item">Reservation</p>
+                                        <p className="nav__item">Kontakt</p>
                                     </Stack>
                                 </div>
                             </div>
