@@ -5,18 +5,29 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
+import {Stack} from "@mui/material";
 
 function App() {
     return (
         <>
             <Box sx={{ flexGrow: 1 }}>
-                <AppBar position="sticky" color="primary" className="ps-5 pe-5">
+                <AppBar position="sticky" color="primary">
                     <Toolbar>
                         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                            <b>Café Vesuvius</b>
+                            <div className="row">
+                                <div className="col-2 d-flex justify-content-end">
+                                    <b>Café Vesuvius</b>
+                                </div>
+                                <div className="col-10 d-flex">
+                                    <Stack direction="row" spacing={2}>
+                                        <p>Om os</p>
+                                        <p>Menukort</p>
+                                        <p>Reservation</p>
+                                        <p>Kontakt</p>
+                                    </Stack>
+                                </div>
+                            </div>
+
                         </Typography>
                     </Toolbar>
                 </AppBar>
