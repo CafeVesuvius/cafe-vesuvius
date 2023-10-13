@@ -1,6 +1,6 @@
+import * as React from 'react';
 import './App.css'
 import MenuBar from "./components/MenuBar.tsx";
-import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -20,10 +20,10 @@ function App() {
                                 </div>
                                 <div className="col-10 d-flex align-items-center">
                                     <Stack direction="row" spacing={2}>
-                                        <p className="nav__item">Om os</p>
-                                        <p className="nav__item">Menukort</p>
-                                        <p className="nav__item">Reservation</p>
-                                        <p className="nav__item">Kontakt</p>
+                                        <a className="nav__item">Om os</a>
+                                        <a className="nav__item">Menukort</a>
+                                        <a className="nav__item">Reservation</a>
+                                        <a className="nav__item">Kontakt</a>
                                     </Stack>
                                 </div>
                             </div>
