@@ -12,6 +12,7 @@ import {
 import ErrorPage from "./pages/ErrorPage.tsx";
 import Home from './pages/Home.tsx'
 import About from './pages/About.tsx'
+import MenuPage from './pages/MenuPage.tsx'
 
 const darkTheme = createTheme({
     palette: {
@@ -31,6 +32,11 @@ const router = createBrowserRouter([
     {
         path: "/about",
         element: <About />,
+        errorElement: <ErrorPage />
+    },
+    {
+        path: "/menu",
+        element: <MenuPage />,
         errorElement: <ErrorPage />
     }
 ]);

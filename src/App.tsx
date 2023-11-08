@@ -27,11 +27,11 @@ function App() {
                                         Café Vesuvius
                                     </a>
                                 </div>
-                                
+
                                 <div className="col-9 d-flex align-items-center">
                                     <Stack direction="row" spacing={5}>
                                         <a className="nav__item text-decoration-none text-dark h6" href="/about">Om os</a>
-                                        <a className="nav__item text-decoration-none text-dark h6" href="/home">Menukort</a>
+                                        <a className="nav__item text-decoration-none text-dark h6" href="/menu">Menukort</a>
                                         <a className="nav__item text-decoration-none text-dark h6" href="/reservation">Reservation</a>
                                         <a className="nav__item text-decoration-none text-dark h6" href="/contact">Kontakt</a>
                                     </Stack>
