@@ -11,6 +11,7 @@ import {
 } from "react-router-dom";
 import ErrorPage from "./pages/ErrorPage.tsx";
 import Home from './pages/Home.tsx'
+import About from './pages/About.tsx'
 
 const darkTheme = createTheme({
     palette: {
@@ -27,6 +28,11 @@ const router = createBrowserRouter([
         element: <Home />,
         errorElement: <ErrorPage />
     },
+    {
+        path: "/about",
+        element: <About />,
+        errorElement: <ErrorPage />
+    }
 ]);
 
 ReactDOM.createRoot(document.getElementById('content')!).render(
