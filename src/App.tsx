@@ -19,16 +19,16 @@ function App() {
         <>
         <Box sx={{ flexGrow: 1 }}>
                 <AppBar position="sticky" color="primary">
-                    <Topbar>
+                    <Topbar className="container">
                         <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
                             <div className="row">
-                                <div className="col-3 d-flex justify-content-end">
+                                <div className="col-5 d-flex justify-content-start">
                                     <a className="text-decoration-none text-dark fw-bold me-4" href="/">
                                         Café Vesuvius
                                     </a>
                                 </div>
 
-                                <div className="col-9 d-flex align-items-center">
+                                <div className="col-10 d-flex align-items-center">
                                     <Stack direction="row" spacing={5}>
                                         <a className="nav__item text-decoration-none text-dark h6" href="/about">Om os</a>
                                         <a className="nav__item text-decoration-none text-dark h6" href="/menu">Menukort</a>
