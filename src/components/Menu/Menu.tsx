@@ -10,6 +10,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Avatar from '@mui/material/Avatar';
 import AutoAwesomeMotionIcon from '@mui/icons-material/AutoAwesomeMotion';
+import IconButton from '@mui/material/IconButton';
 import CreateIcon from '@mui/icons-material/Create';
 import DeleteIcon from '@mui/icons-material/Delete';
 
@@ -57,8 +58,8 @@ function MenuSelection() {
                         <TableCell scope="item">{item.name}</TableCell>
                         <TableCell align="right">{item.unitPrice + " kr."}</TableCell>
                         <TableCell align="right">{item.isActive ? "Synlig" : "Usynlig"}</TableCell>
-                        <TableCell align="right"><CreateIcon /></TableCell>
-                        <TableCell align="right"><DeleteIcon /></TableCell>
+                        <TableCell align="right"><IconButton edge="end" aria-label="create"><CreateIcon /></IconButton></TableCell>
+                        <TableCell align="right"><IconButton edge="end" aria-label="delete"><DeleteIcon /></IconButton></TableCell>
                         </TableRow>
                     ))}
                     </TableBody>
