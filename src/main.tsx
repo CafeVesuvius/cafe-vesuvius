@@ -9,8 +9,8 @@ import {
     createBrowserRouter,
     RouterProvider,
 } from "react-router-dom";
-import Root from "./routes/root";
-import ErrorPage from "./error-page.tsx";
+import ErrorPage from "./pages/ErrorPage.tsx";
+import Home from './pages/Home.tsx'
 
 const darkTheme = createTheme({
     palette: {
@@ -24,7 +24,7 @@ const darkTheme = createTheme({
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <Root />,
+        element: <Home />,
         errorElement: <ErrorPage />
     },
 ]);
@@ -32,8 +32,8 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById('content')!).render(
     <React.StrictMode>
         <ThemeProvider theme={darkTheme}>
-            <RouterProvider router={router} />
             <App/>
+            <RouterProvider router={router} />
         </ThemeProvider>
     </React.StrictMode>
 )

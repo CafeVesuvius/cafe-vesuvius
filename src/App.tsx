@@ -10,7 +10,7 @@ import {Stack} from "@mui/material";
 function App() {
     return (
         <>
-            <Box sx={{ flexGrow: 1 }}>
+        <Box sx={{ flexGrow: 1 }}>
                 <AppBar position="sticky" color="primary">
                     <Toolbar>
                         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
@@ -21,20 +21,16 @@ function App() {
                                 <div className="col-10 d-flex align-items-center">
                                     <Stack direction="row" spacing={2}>
                                         <a className="nav__item">Om os</a>
-                                        <a className="nav__item">Menukort</a>
+                                        <a className="nav__item" href="/home">Menukort</a>
                                         <a className="nav__item">Reservation</a>
                                         <a className="nav__item">Kontakt</a>
                                     </Stack>
                                 </div>
                             </div>
-
                         </Typography>
                     </Toolbar>
                 </AppBar>
             </Box>
-
-
-            <MenuBar />
         </>
     )
 }
