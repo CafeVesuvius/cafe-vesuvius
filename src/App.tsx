@@ -33,7 +33,7 @@ function App() {
                             </div>
 
                             <div className="flex items-center gap-x-5 md:gap-x-8">
-                                <a className="group inline-flex items-center justify-center rounded-full py-2 px-4 text-sm font-semibold focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 bg-vesuvius-red text-white hover:text-slate-100 hover:bg-vesuvius-red focus-visible:outline-blue-100 focus:ring-2 focus:ring-offset-2 focus:ring-neutral-200">
+                                <a href="/reservation" className="group inline-flex items-center justify-center rounded-full py-2 px-4 text-sm font-semibold focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 bg-vesuvius-red text-white hover:text-slate-100 hover:bg-vesuvius-red focus-visible:outline-blue-100 focus:ring-2 focus:ring-offset-2 focus:ring-neutral-200">
                                     <span>
                                         Bestil bord <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true" className="relative top-[1] ml-2 hidden fill-transparent stroke-white stroke-2 lg:inline"><g fill-rule="evenodd"><path className="opacity-0 transition-opacity group-hover:opacity-100" d="M0 5h7"></path><path className="transition-transform group-hover:translate-x-[3px]" d="M1 1l4 4-4 4"></path></g></svg>
                                     </span>   

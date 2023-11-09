@@ -10,7 +10,7 @@ function Banner(props) {
                 {props.line2}
             </p>
             {props.buttonText ? <div className="mt-10 flex justify-center gap-x-6">
-                <a className="group inline-flex items-center justify-center rounded-full bg-neutral-900 py-3 px-6 text-base font-semibold text-white hover:bg-neutral-700 hover:text-neutral-100 focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-900 active:bg-neutral-800 active:text-neutral-300">
+                <a href={props.link} className="group inline-flex items-center justify-center rounded-full bg-neutral-900 py-3 px-6 text-base font-semibold text-white hover:bg-neutral-700 hover:text-neutral-100 focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-900 active:bg-neutral-800 active:text-neutral-300">
                     {props.buttonText}
                 </a>
             </div> : null}
