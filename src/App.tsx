@@ -18,7 +18,7 @@ function App() {
     return (
         <>
         <Box sx={{ flexGrow: 1 }}>
-                <AppBar position="sticky" color="primary">
+                <AppBar position="sticky" elevation={0} className="border-bottom">
                     <Topbar className="container">
                         <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
                             <div className="row">

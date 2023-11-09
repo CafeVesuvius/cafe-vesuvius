@@ -60,7 +60,6 @@ function MenuSelection() {
                         <TableCell align="right">Pris</TableCell>
                         <TableCell align="right">Synlighed</TableCell>
                         <TableCell align="right"></TableCell>
-                        <TableCell align="right"></TableCell>
                     </TableRow>
                     </TableHead>
                     <TableBody>

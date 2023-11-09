@@ -38,3 +38,9 @@ h1 {
   font-weight: normal;
 }
 
+.banner {
+  color: #fff;
+  padding: 2em 0;
+  text-align: center;
+  height: 50vh;
+}
