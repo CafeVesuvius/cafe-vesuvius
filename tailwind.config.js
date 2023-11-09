@@ -8,7 +8,11 @@ export default {
     fontFamily: {
       sans: ['"Inter"']
     },
-    extend: {},
+    extend: {
+      colors: {
+        'vesuvius-red':'#C91713',
+      },
+    },
   },
   plugins: [],
 }

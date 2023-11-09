@@ -2,7 +2,7 @@ function Banner() {
     return (
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-20 pb-16 text-center lg:pt-32">
             <h1 className="mx-auto max-w-5xl font-display font-bold text-5xl tracking-tight sm:text-7xl">
-                Lækker mad, god stemning og hyggelig <p className="bg-gradient-to-r from-blue-600 via-green-500 to-indigo-400 inline-block text-transparent bg-clip-text">atmosfære</p> 
+                Lækker mad, god stemning og hyggelig <p className="bg-gradient-to-r from-yellow-400 to-vesuvius-red inline-block text-transparent bg-clip-text">atmosfære</p> 
             </h1>
             <p className="mx-auto mt-8 max-w-2xl text-lg tracking-tight text-neutral-700">
                 Vi har et bredt udvalg af lækre retter, der passer til enhver smag. 
