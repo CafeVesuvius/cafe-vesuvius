@@ -11,7 +11,6 @@ import Paper from '@mui/material/Paper';
 import Avatar from '@mui/material/Avatar';
 
 function MenuSelection() {
-    const [editor, setEditor] = useState({});
     const [menuItems, setMenuItems] = useState([]);
 
     const fetchMenu = async () => {
