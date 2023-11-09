@@ -4,7 +4,6 @@ import App from './App.tsx'
 import './index.css'
 import '@mui/material/styles'
 import {createTheme, ThemeProvider} from "@mui/material"
-import 'bootstrap/dist/css/bootstrap.min.css'
 import {
     createBrowserRouter,
     RouterProvider,
@@ -20,6 +19,9 @@ const darkTheme = createTheme({
         primary: {
             main: '#fcfcfc',
         },
+    },
+    typography: {
+        fontFamily: 'Inter, sans-serif',
     },
 });
 

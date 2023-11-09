@@ -50,7 +50,7 @@ function MenuSelection() {
     }, []);
 
     return (
-        <div className="container">
+        <div className="container mx-auto">
             <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>

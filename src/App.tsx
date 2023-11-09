@@ -18,29 +18,29 @@ function App() {
     return (
         <>
         <Box sx={{ flexGrow: 1 }}>
-                <AppBar position="sticky" elevation={0} className="border-bottom">
-                    <Topbar className="container">
-                        <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
-                            <div className="row">
-                                <div className="col-5 d-flex justify-content-start">
-                                    <a className="text-decoration-none text-dark fw-bold me-4" href="/">
-                                        Café Vesuvius
-                                    </a>
-                                </div>
-
-                                <div className="col-10 d-flex align-items-center">
-                                    <Stack direction="row" spacing={5}>
-                                        <a className="nav__item text-decoration-none text-dark h6" href="/about">Om os</a>
-                                        <a className="nav__item text-decoration-none text-dark h6" href="/menu">Menukort</a>
-                                        <a className="nav__item text-decoration-none text-dark h6" href="/reservation">Reservation</a>
-                                        <a className="nav__item text-decoration-none text-dark h6" href="/contact">Kontakt</a>
-                                    </Stack>
-                                </div>
+            <AppBar position="sticky" elevation={0} className="border-bottom border-b border-neutral-200 bg-white">
+                <Topbar className="container mx-auto sticky top-0 z-50 backdrop-blur-md">
+                    <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
+                        <div className="row">
+                            <div className="col-5 d-flex justify-content-start">
+                                <a className="leading-0 translate-y-0.5 font-display text-xl ps-2 tracking-tight text-neutral-800" href="/">
+                                    Café Vesuvius
+                                </a>
                             </div>
-                        </Typography>
-                    </Topbar>
-                </AppBar>
-            </Box>
+
+                            <div className="col-10 d-flex align-items-center">
+                                <Stack direction="row" spacing={5}>
+                                    <a className="inline-block rounded-lg py-1 px-2 text-sm text-slate-700 hover:bg-slate-100 hover:text-slate-900" href="/about">Om os</a>
+                                    <a className="inline-block rounded-lg py-1 px-2 text-sm text-slate-700 hover:bg-slate-100 hover:text-slate-900" href="/menu">Menukort</a>
+                                    <a className="inline-block rounded-lg py-1 px-2 text-sm text-slate-700 hover:bg-slate-100 hover:text-slate-900" href="/reservation">Reservation</a>
+                                    <a className="inline-block rounded-lg py-1 px-2 text-sm text-slate-700 hover:bg-slate-100 hover:text-slate-900" href="/contact">Kontakt</a>
+                                </Stack>
+                            </div>
+                        </div>
+                    </Typography>
+                </Topbar>
+            </AppBar>
+        </Box>
         </>
     )
 }
