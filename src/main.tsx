@@ -10,8 +10,9 @@ import {
 } from "react-router-dom";
 import ErrorPage from "./pages/ErrorPage.tsx";
 import Home from './pages/Home.tsx'
-import About from './pages/About.tsx'
+import AboutPage from './pages/AboutPage.tsx'
 import MenuPage from './pages/MenuPage.tsx'
+import ReservationPage from './pages/ReservationPage.tsx'
 
 const darkTheme = createTheme({
     palette: {
@@ -33,12 +34,17 @@ const router = createBrowserRouter([
     },
     {
         path: "/about",
-        element: <About />,
+        element: <AboutPage />,
         errorElement: <ErrorPage />
     },
     {
         path: "/menu",
         element: <MenuPage />,
+        errorElement: <ErrorPage />
+    },
+    {
+        path: "/reservation",
+        element: <ReservationPage />,
         errorElement: <ErrorPage />
     }
 ]);
