@@ -9,13 +9,18 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Avatar from '@mui/material/Avatar';
-import AutoAwesomeMotionIcon from '@mui/icons-material/AutoAwesomeMotion';
 import IconButton from '@mui/material/IconButton';
 import CreateIcon from '@mui/icons-material/Create';
 import DeleteIcon from '@mui/icons-material/Delete';
+import {
+    CSSTransition,
+    TransitionGroup,
+  } from 'react-transition-group';
 
+import MenuEditor from './MenuEditor';
 
 function MenuSelection() {
+    const [editor, setEditor] = useState({});
     const [menuItems, setMenuItems] = useState([]);
 
     const fetchMenu = async () => {
@@ -28,6 +33,17 @@ function MenuSelection() {
             setMenuItems(response.data.menuItems);
         })
     };
+
+    const deleteMenuItem = async (id: number) => {
+        await axios.delete(CV_API.BASE_URL + "menu/" + id, ).then((response) => {
+            if (response.status !== 200) {
+                console.log("Error deleting menu item");
+                return;
+            }
+
+            fetchMenu();
+        })
+    }
 
     useEffect(() => {
         fetchMenu();
@@ -48,20 +64,22 @@ function MenuSelection() {
                     </TableRow>
                     </TableHead>
                     <TableBody>
-                    {menuItems.map((item) => (
-                        <TableRow
-                        className={item.isActive ? "bg-light bg-gradient" : "bg-secondary bg-gradient"}
-                        key={item.name}
-                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                        >
-                        <TableCell align='left' scope="item"><Avatar alt={item.name} src={"../../src/assets/MenuImages/" + item.imagePath} /></TableCell>
-                        <TableCell scope="item">{item.name}</TableCell>
-                        <TableCell align="right">{item.unitPrice + " kr."}</TableCell>
-                        <TableCell align="right">{item.isActive ? "Synlig" : "Usynlig"}</TableCell>
-                        <TableCell align="right"><IconButton edge="end" aria-label="create"><CreateIcon /></IconButton></TableCell>
-                        <TableCell align="right"><IconButton edge="end" aria-label="delete"><DeleteIcon /></IconButton></TableCell>
-                        </TableRow>
-                    ))}
+                        {menuItems.map((item) => (
+                            <TableRow
+                                className={item.isActive ? "bg-light bg-gradient" : "bg-secondary bg-gradient"}
+                                key={item.name}
+                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                >
+                                <TableCell align='left' scope="item"><Avatar alt={item.name} src={"../../src/assets/MenuImages/" + item.imagePath} /></TableCell>
+                                <TableCell scope="item">{item.name}</TableCell>
+                                <TableCell align="right">{item.unitPrice + " kr."}</TableCell>
+                                <TableCell align="right">{item.isActive ? "Synlig" : "Usynlig"}</TableCell>
+                                <TableCell align="right">
+                                    <IconButton edge="end" aria-label="create" onClick={() => {setEditor(item)}}><CreateIcon /></IconButton>
+                                    <IconButton edge="end" aria-label="delete" onClick={() => {deleteMenuItem(item.id)}}><DeleteIcon /></IconButton>
+                                </TableCell>
+                            </TableRow>
+                        ))}
                     </TableBody>
                 </Table>
             </TableContainer>
