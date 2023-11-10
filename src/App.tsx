@@ -23,6 +23,12 @@ function App() {
                     <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
                         <div className="relative z-50 flex justify-between">
                             <div className="flex items-center md:gap-x-12">
+                                <svg width="200" height="90" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="50%" cy="50" r="6" fill="#C91713"/>
+                                    <circle cx="60%" cy="40" r="8.5" fill="#C91713"/>
+                                    <circle cx="70%" cy="50" r="6" fill="#C91713"/>
+                                </svg>
+
                                 <a className="leading-0 translate-y-0.5 font-display font-bold text-xl ps-2 tracking-tight text-neutral-800" href="/">
                                     Café Vesuvius
                                 </a>
