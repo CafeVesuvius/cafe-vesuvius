@@ -13,7 +13,17 @@ function Reservation() {
     }
 
     const setChildrenCount = (count: number) => {
+        const element: HTMLElement | null = document.getElementById("children");
         setChildren(Math.min(Math.max(count, 0), 10 - adults));
+
+        if (count > 0) {
+            element?.classList.add("text-vesuvius-red");
+            element?.classList.remove("opacity-25");
+
+        } else {
+            element?.classList.remove("text-vesuvius-red");
+            element?.classList.add("opacity-25");
+        }
     }
 
     return (
@@ -48,15 +58,15 @@ function Reservation() {
                                 <p className="font-display font-bold text- m-5 tracking-tight uppercase text-vesuvius-red">Antal voksne (13+ ÅR)</p>
                                 <div className="flex ml-auto mr-5">
                                     <IconButton edge="end" aria-label="create" onClick={() => {setAdultsCount(adults - 1)}}><RemoveCircleOutlineTwoTone fontSize="medium" /></IconButton>
-                                    <p id="adult" className="mx-2 ml-6 font-bold text-vesuvius-red text-center place-self-center text-xl">{adults}</p>
+                                    <p id="adult" className="w-5 mx-2 ml-6 font-bold text-vesuvius-red text-center place-self-center text-xl">{adults}</p>
                                     <IconButton edge="end" aria-label="delete" onClick={() => {setAdultsCount(adults + 1)}}><AddCircleOutlineTwoToneIcon fontSize="medium"/></IconButton>
                                 </div>
                             </div>
                             <div className="flex bg-white">
-                                <p className="font-display font-bold text- m-5 tracking-tight uppercase text-vesuvius-red">Antal børn (0-12 ÅR)</p>
+                                <p className="font-display font-bold text- m-5 tracking-tight uppercase">Antal børn (0-12 ÅR)</p>
                                 <div className="flex ml-auto mr-5">
                                     <IconButton edge="end" aria-label="create" onClick={() => {setChildrenCount(children - 1)}}><RemoveCircleOutlineTwoTone fontSize="medium" /></IconButton>
-                                    <p id="children" className="mx-2 ml-6 font-bold text-vesuvius-red text-center place-self-center text-xl">{children}</p>
+                                    <p id="children" className="w-5 mx-2 ml-6 font-bold text-center place-self-center text-xl opacity-25">{children}</p>
                                     <IconButton edge="end" aria-label="delete" onClick={() => {setChildrenCount(children + 1)}}><AddCircleOutlineTwoToneIcon fontSize="medium"/></IconButton>
                                 </div>
                             </div>
