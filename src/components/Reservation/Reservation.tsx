@@ -1,5 +1,5 @@
 import React from 'react';
-import {IconButton} from "@mui/material";
+import {Button, IconButton} from "@mui/material";
 import AddCircleOutlineTwoToneIcon from '@mui/icons-material/AddCircleOutlineTwoTone';
 import RemoveCircleOutlineTwoTone from '@mui/icons-material/RemoveCircleOutlineTwoTone';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
@@ -167,6 +167,9 @@ function Reservation() {
                             <input type="text" id="name"
                                    className="bg-white font-display font-bold p-5 tracking-tight uppercase"
                                    placeholder="MOBILNR"/>
+                        </div>
+                        <div className="flex justify-end">
+                            <input className="bg-vesuvius-red font-display font-bold p-5 tracking-tight uppercase cursor-pointer text-white" type="submit" value="BESTIL BORD" />
                         </div>
                     </form>
                 </p>
