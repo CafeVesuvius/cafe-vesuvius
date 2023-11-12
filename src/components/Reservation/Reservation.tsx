@@ -6,17 +6,18 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import {
     DateCalendar,
     DayCalendarSkeleton,
+    DigitalClock,
     LocalizationProvider,
     PickersDay,
     PickersDayProps
 } from '@mui/x-date-pickers';
 import Badge from '@mui/material/Badge';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import {Dayjs} from "dayjs";
+import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';
 import * as dayjs from "dayjs";
+import {Dayjs} from "dayjs";
 
 function ServerDay(props: PickersDayProps<Dayjs> & { highlightedDays?: number[] }) {
-    const { highlightedDays = [], day, outsideCurrentMonth, ...other } = props;
+    const {highlightedDays = [], day, outsideCurrentMonth, ...other} = props;
 
     const isSelected =
         !props.outsideCurrentMonth && highlightedDays.indexOf(props.day.date()) >= 0;
@@ -27,7 +28,7 @@ function ServerDay(props: PickersDayProps<Dayjs> & { highlightedDays?: number[] 
             overlap="circular"
             badgeContent={isSelected ? '🌚' : ''}
         >
-            <PickersDay {...other} outsideCurrentMonth={outsideCurrentMonth} day={day} />
+            <PickersDay {...other} outsideCurrentMonth={outsideCurrentMonth} day={day}/>
         </Badge>
     );
 }
@@ -35,8 +36,6 @@ function ServerDay(props: PickersDayProps<Dayjs> & { highlightedDays?: number[] 
 function Reservation() {
     const [adults, setAdults] = React.useState(1);
     const [children, setChildren] = React.useState(0);
-
-    const [calendarOpen, setCalendarOpen] = React.useState(false);
 
     const setAdultsCount = (count: number) => {
         setAdults(Math.min(Math.max(count, 1), 10 - children));
@@ -81,71 +80,93 @@ function Reservation() {
                         Vi glæder os til at se dig!
                     </p>
 
-                    <form className="mt-5">
-                        <p className="font-display font-bold text-2xl tracking-tight uppercase italic mb-6">Hvor mange bliver?</p>
-                        <div className="grid gap-6 mb-6 md:grid-cols-2">
+                    <form className="mt-8">
+                        <p className="font-display font-bold text-2xl tracking-tight uppercase italic mb-8">Hvor mange
+                            bliver?</p>
+                        <div className="grid gap-6 mb-8 md:grid-cols-2">
                             <div className="flex bg-white">
-                                <p className="font-display font-bold text- m-5 tracking-tight uppercase text-vesuvius-red">Antal voksne (13+ ÅR)</p>
+                                <p className="font-display font-bold text- m-5 tracking-tight uppercase text-vesuvius-red">Antal
+                                    voksne (13+ ÅR)</p>
                                 <div className="flex ml-auto mr-5">
-                                    <IconButton edge="end" aria-label="create" onClick={() => {setAdultsCount(adults - 1)}}><RemoveCircleOutlineTwoTone fontSize="medium" /></IconButton>
-                                    <p id="adult" className="w-5 mx-2 ml-6 font-bold text-vesuvius-red text-center place-self-center text-xl">{adults}</p>
-                                    <IconButton edge="end" aria-label="delete" onClick={() => {setAdultsCount(adults + 1)}}><AddCircleOutlineTwoToneIcon fontSize="medium"/></IconButton>
+                                    <IconButton edge="end" aria-label="create" onClick={() => {
+                                        setAdultsCount(adults - 1)
+                                    }}><RemoveCircleOutlineTwoTone fontSize="medium"/></IconButton>
+                                    <p id="adult"
+                                       className="w-5 mx-2 ml-6 font-bold text-vesuvius-red text-center place-self-center text-xl">{adults}</p>
+                                    <IconButton edge="end" aria-label="delete" onClick={() => {
+                                        setAdultsCount(adults + 1)
+                                    }}><AddCircleOutlineTwoToneIcon fontSize="medium"/></IconButton>
                                 </div>
                             </div>
                             <div className="flex bg-white">
-                                <p className="font-display font-bold text- m-5 tracking-tight uppercase">Antal børn (0-12 ÅR)</p>
+                                <p className="font-display font-bold m-5 tracking-tight uppercase">Antal børn
+                                    (0-12 ÅR)</p>
                                 <div className="flex ml-auto me-5">
-                                    <IconButton edge="end" aria-label="create" onClick={() => {setChildrenCount(children - 1)}}><RemoveCircleOutlineTwoTone fontSize="medium" /></IconButton>
-                                    <p id="children" className="w-5 mx-2 ml-6 font-bold text-center place-self-center text-xl opacity-25">{children}</p>
-                                    <IconButton edge="end" aria-label="delete" onClick={() => {setChildrenCount(children + 1)}}><AddCircleOutlineTwoToneIcon fontSize="medium"/></IconButton>
+                                    <IconButton edge="end" aria-label="create" onClick={() => {
+                                        setChildrenCount(children - 1)
+                                    }}><RemoveCircleOutlineTwoTone fontSize="medium"/></IconButton>
+                                    <p id="children"
+                                       className="w-5 mx-2 ml-6 font-bold text-center place-self-center text-xl opacity-25">{children}</p>
+                                    <IconButton edge="end" aria-label="delete" onClick={() => {
+                                        setChildrenCount(children + 1)
+                                    }}><AddCircleOutlineTwoToneIcon fontSize="medium"/></IconButton>
                                 </div>
                             </div>
                         </div>
 
-                        <p className="font-display font-bold text-2xl tracking-tight uppercase italic mb-6">Hvornår skal
+                        <p className="font-display font-bold text-2xl tracking-tight uppercase italic mb-8">Hvornår skal
                             i bruge et bord?</p>
 
-                        <div className="grid gap-6 mb-6 md:grid-cols-2">
-                            <div>
-                                <div className="flex justify-between bg-white" onClick={() => {setCalendarOpen(!calendarOpen)}}>
-                                    <p className="font-display font-bold m-5 tracking-tight uppercase">Vælg dato</p>
-                                    <div className="flex justify-center my-auto me-5 opacity-75">
-                                        <ArrowDropDownIcon fontSize="medium"/>
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <div className="grid gap-6 md:grid-cols-2">
+                                <div>
+                                    <div className="flex justify-between bg-white">
+                                        <p className="font-display font-bold m-5 tracking-tight uppercase">Vælg dato</p>
+                                        <div className="flex justify-center my-auto me-5 opacity-75">
+                                            <ArrowDropDownIcon fontSize="medium"/>
+                                        </div>
+
                                     </div>
-
+                                    <DateCalendar
+                                        defaultValue={dayjs().add(1, 'day')}
+                                        views={['day']}
+                                        renderLoading={() => <DayCalendarSkeleton/>}
+                                        slots={{
+                                            day: ServerDay,
+                                        }}
+                                        shouldDisableDate={(day) => {
+                                            return dayjs().isAfter(day);
+                                        }}
+                                        disablePast={true}
+                                        disableHighlightToday={true}
+                                    />
                                 </div>
-                                <div className={calendarOpen ? "" : "hidden"}>
-                                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                        <DateCalendar
-                                            defaultValue={dayjs().add(1, 'day')}
-                                            views={['day']}
-                                            renderLoading={() => <DayCalendarSkeleton />}
-                                            slots={{
-                                                day: ServerDay,
-                                            }}
-                                            shouldDisableDate={(day) => {
-                                                return dayjs().isAfter(day);
-                                            }}
-                                            disablePast={true}
-                                            disableHighlightToday={true}
-                                        />
-                                    </LocalizationProvider>
+                                <div>
+                                    <div className="flex justify-between bg-white">
+                                        <p className="font-display font-bold m-5 tracking-tight uppercase">Vælg tid</p>
+                                        <div className="flex justify-center my-auto me-5 opacity-75">
+                                            <ArrowDropDownIcon fontSize="medium"/>
+                                        </div>
+
+                                    </div>
+                                    <DigitalClock defaultValue={dayjs('2022-04-17T15:30')}
+                                                  shouldDisableTime={(value, view) =>
+                                                      view === 'hours' && value.hour() < 10 || (value.hour() > 22)
+                                                  }
+                                                  ampm={false}
+                                    />
                                 </div>
                             </div>
-                        </div>
+                        </LocalizationProvider>
 
-                        <p className="font-display font-bold text-2xl tracking-tight uppercase italic mb-6">Kontaktoplysninger</p>
-                        <div className="grid gap-6 mb-6 md:grid-cols-2">
-                            <div>
-                                <input type="text" id="name"
-                                       className="bg-white-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                                       placeholder="DIT NAVN"/>
-                            </div>
-                            <div>
-                                <input type="text" id="phone"
-                                       className="bg-white-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                                       placeholder="MOBILNR"/>
-                            </div>
+                        <p className="font-display font-bold text-2xl tracking-tight uppercase italic mb-8">Kontaktoplysninger</p>
+                        <div className="grid gap-6 mb-8 md:grid-cols-2">
+                            <input type="text" id="name"
+                                   className="bg-white font-display font-bold p-5 tracking-tight uppercase"
+                                   placeholder="DIT NAVN"/>
+                            <input type="text" id="name"
+                                   className="bg-white font-display font-bold p-5 tracking-tight uppercase"
+                                   placeholder="MOBILNR"/>
                         </div>
                     </form>
                 </p>

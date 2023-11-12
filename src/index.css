@@ -16,9 +16,14 @@
 
 .MuiDateCalendar-root {
   width: 100% !important;
+  height: unset !important;
 }
 
 .MuiDayCalendar-header, .MuiDayCalendar-weekContainer {
   display: flex !important;
   justify-content: space-around !important;
+}
+
+.MuiDigitalClock-root {
+  max-height: 300px !important;
 }
