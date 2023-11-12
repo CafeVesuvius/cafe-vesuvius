@@ -6,6 +6,7 @@ import ErrorPage from "./pages/ErrorPage.tsx";
 import AboutPage from "./pages/AboutPage.tsx";
 import MenuPage from "./pages/MenuPage.tsx";
 import ReservationPage from "./pages/ReservationPage.tsx";
+import AdminPage from "./pages/AdminPage.tsx";
 
 const router = createBrowserRouter([
     {
@@ -26,6 +27,11 @@ const router = createBrowserRouter([
     {
         path: "/reservation",
         element: <ReservationPage />,
+        errorElement: <ErrorPage />
+    },
+    {
+        path: "/admin",
+        element: <AdminPage />,
         errorElement: <ErrorPage />
     }
 ]);
