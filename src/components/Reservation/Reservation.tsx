@@ -1,12 +1,42 @@
 import React from 'react';
-import {Datepicker} from 'flowbite-react';
 import {IconButton} from "@mui/material";
 import AddCircleOutlineTwoToneIcon from '@mui/icons-material/AddCircleOutlineTwoTone';
 import RemoveCircleOutlineTwoTone from '@mui/icons-material/RemoveCircleOutlineTwoTone';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import {
+    DateCalendar,
+    DayCalendarSkeleton,
+    LocalizationProvider,
+    PickersDay,
+    PickersDayProps
+} from '@mui/x-date-pickers';
+import Badge from '@mui/material/Badge';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import {Dayjs} from "dayjs";
+import * as dayjs from "dayjs";
+
+function ServerDay(props: PickersDayProps<Dayjs> & { highlightedDays?: number[] }) {
+    const { highlightedDays = [], day, outsideCurrentMonth, ...other } = props;
+
+    const isSelected =
+        !props.outsideCurrentMonth && highlightedDays.indexOf(props.day.date()) >= 0;
+
+    return (
+        <Badge
+            key={props.day.toString()}
+            overlap="circular"
+            badgeContent={isSelected ? '🌚' : ''}
+        >
+            <PickersDay {...other} outsideCurrentMonth={outsideCurrentMonth} day={day} />
+        </Badge>
+    );
+}
 
 function Reservation() {
     const [adults, setAdults] = React.useState(1);
     const [children, setChildren] = React.useState(0);
+
+    const [calendarOpen, setCalendarOpen] = React.useState(false);
 
     const setAdultsCount = (count: number) => {
         setAdults(Math.min(Math.max(count, 1), 10 - children));
@@ -64,7 +94,7 @@ function Reservation() {
                             </div>
                             <div className="flex bg-white">
                                 <p className="font-display font-bold text- m-5 tracking-tight uppercase">Antal børn (0-12 ÅR)</p>
-                                <div className="flex ml-auto mr-5">
+                                <div className="flex ml-auto me-5">
                                     <IconButton edge="end" aria-label="create" onClick={() => {setChildrenCount(children - 1)}}><RemoveCircleOutlineTwoTone fontSize="medium" /></IconButton>
                                     <p id="children" className="w-5 mx-2 ml-6 font-bold text-center place-self-center text-xl opacity-25">{children}</p>
                                     <IconButton edge="end" aria-label="delete" onClick={() => {setChildrenCount(children + 1)}}><AddCircleOutlineTwoToneIcon fontSize="medium"/></IconButton>
@@ -76,7 +106,32 @@ function Reservation() {
                             i bruge et bord?</p>
 
                         <div className="grid gap-6 mb-6 md:grid-cols-2">
-                            <Datepicker/>
+                            <div>
+                                <div className="flex justify-between bg-white" onClick={() => {setCalendarOpen(!calendarOpen)}}>
+                                    <p className="font-display font-bold m-5 tracking-tight uppercase">Vælg dato</p>
+                                    <div className="flex justify-center my-auto me-5 opacity-75">
+                                        <ArrowDropDownIcon fontSize="medium"/>
+                                    </div>
+
+                                </div>
+                                <div className={calendarOpen ? "" : "hidden"}>
+                                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                        <DateCalendar
+                                            defaultValue={dayjs().add(1, 'day')}
+                                            views={['day']}
+                                            renderLoading={() => <DayCalendarSkeleton />}
+                                            slots={{
+                                                day: ServerDay,
+                                            }}
+                                            shouldDisableDate={(day) => {
+                                                return dayjs().isAfter(day);
+                                            }}
+                                            disablePast={true}
+                                            disableHighlightToday={true}
+                                        />
+                                    </LocalizationProvider>
+                                </div>
+                            </div>
                         </div>
 
                         <p className="font-display font-bold text-2xl tracking-tight uppercase italic mb-6">Kontaktoplysninger</p>

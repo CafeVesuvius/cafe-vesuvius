@@ -8,3 +8,17 @@
   url("./fonts/Inter-Regular.ttf") format("truetype");
   font-weight: normal;
 }
+
+.Mui-selected {
+  background-color: #C91713 !important;
+  color: #fff !important;
+}
+
+.MuiDateCalendar-root {
+  width: 100% !important;
+}
+
+.MuiDayCalendar-header, .MuiDayCalendar-weekContainer {
+  display: flex !important;
+  justify-content: space-around !important;
+}
