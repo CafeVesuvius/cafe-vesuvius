@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {IconButton} from "@mui/material";
 import AddCircleOutlineTwoToneIcon from '@mui/icons-material/AddCircleOutlineTwoTone';
 import RemoveCircleOutlineTwoTone from '@mui/icons-material/RemoveCircleOutlineTwoTone';
@@ -15,6 +15,8 @@ import Badge from '@mui/material/Badge';
 import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';
 import * as dayjs from "dayjs";
 import {Dayjs} from "dayjs";
+import axios from "axios";
+import {CV_API} from "../../config";
 
 function ServerDay(props: PickersDayProps<Dayjs> & { highlightedDays?: number[] }) {
     const {highlightedDays = [], day, outsideCurrentMonth, ...other} = props;
@@ -36,6 +38,9 @@ function ServerDay(props: PickersDayProps<Dayjs> & { highlightedDays?: number[] 
 function Reservation() {
     const [adults, setAdults] = React.useState(1);
     const [children, setChildren] = React.useState(0);
+    const [date, setDate] = React.useState<Date>(new Date());
+    const [availableDays, setAvailableDays] = React.useState<Dayjs[]>([]);
+    const [month, setMonth] = React.useState<Dayjs>(dayjs());
 
     const setAdultsCount = (count: number) => {
         setAdults(Math.min(Math.max(count, 1), 10 - children));
@@ -54,6 +59,37 @@ function Reservation() {
             element?.classList.add("opacity-25");
         }
     }
+
+    const checkAvailableDates = (reservationTime: string) => {
+        return axios.get(CV_API.BASE_URL + "Reservation/IsAvailable/" + reservationTime, ).then((response: { status: number, data: { isAvailable: boolean, reason: string } }) => {
+            if (response.status !== 200) {
+                console.log("Error fetching menu");
+                return;
+            }
+
+            return response.data;
+        })
+    };
+
+    useEffect(() => {
+        const fetchAvailableDays = async () => {
+            const days: Dayjs[] = [];
+            const start = month.startOf('month');
+            const end = month.endOf('month');
+
+            for (let m = start; m.isBefore(end); m = m.add(1, 'day')) {
+                const response = await checkAvailableDates(m.format('YYYY-MM-DDTHH:mm:ss'));
+
+                if (response.isAvailable) {
+                    days.push(m);
+                }
+            }
+
+            setAvailableDays(days);
+        };
+
+        fetchAvailableDays();
+    }, [month]);
 
     return (
         <div className="container mx-auto pt-16 pb-16 text-center bg-gray-100 border border-b border-neutral-100">
@@ -125,7 +161,6 @@ function Reservation() {
                                         <div className="flex justify-center my-auto me-5 opacity-75">
                                             <ArrowDropDownIcon fontSize="medium"/>
                                         </div>
-
                                     </div>
                                     <DateCalendar
                                         defaultValue={dayjs().add(1, 'day')}
@@ -135,10 +170,12 @@ function Reservation() {
                                             day: ServerDay,
                                         }}
                                         shouldDisableDate={(day) => {
-                                            return dayjs().isAfter(day);
+                                            return dayjs().isAfter(day) || !(availableDays.indexOf(day) < 0);
                                         }}
                                         disablePast={true}
                                         disableHighlightToday={true}
+                                        onChange={(newDate) => {setDate(newDate?.toDate() || new Date())}}
+                                        onMonthChange={(newMonth) => {setMonth(newMonth)}}
                                     />
                                 </div>
                                 <div>
@@ -149,7 +186,7 @@ function Reservation() {
                                         </div>
 
                                     </div>
-                                    <DigitalClock defaultValue={dayjs('2022-04-17T15:30')}
+                                    <DigitalClock
                                                   shouldDisableTime={(value, view) =>
                                                       view === 'hours' && value.hour() < 10 || (value.hour() > 22)
                                                   }
