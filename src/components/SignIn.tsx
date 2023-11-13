@@ -12,6 +12,8 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import axios from 'axios';
+import {CV_API} from "../config";
 
 function Copyright(props: any) {
     return (
@@ -29,14 +31,21 @@ function Copyright(props: any) {
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
-export default function SignIn() {
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+export default function SignIn(props) {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        console.log({
-            username: data.get('username'),
-            password: data.get('password'),
-        });
+
+        if(!data.get('username') || !data.get('password')) {
+            alert('Du mangler at indtaste oplysninger.');
+        }
+        else {
+                await axios.post(CV_API.BASE_URL +"Authentication", {userName: data.get('username'), password: data.get('password')}).then((res) => {
+                    if(res.status == 200) {
+                        props.setIsSignedIn(true);
+                    }
+                })
+        }
     };
 
     return (
