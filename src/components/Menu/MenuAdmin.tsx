@@ -9,9 +9,10 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Avatar from '@mui/material/Avatar';
-// import { IconButton } from '@mui/material';
-// import CreateIcon from '@mui/icons-material/Create';
-// import DeleteIcon from '@mui/icons-material/Delete';
+import { IconButton } from '@mui/material';
+import CreateIcon from '@mui/icons-material/Create';
+import DeleteIcon from '@mui/icons-material/Delete';
+import TextField from "@mui/material/TextField";
 
 function MenuSelection() {
     const [menuItems, setMenuItems] = useState([]);
@@ -27,16 +28,18 @@ function MenuSelection() {
         })
     };
 
-    // const deleteMenuItem = async (id: number) => {
-    //     await axios.delete(CV_API.BASE_URL + "menu/" + id, ).then((response) => {
-    //         if (response.status !== 200) {
-    //             console.log("Error deleting menu item");
-    //             return;
-    //         }
+    const deleteMenuItem = async (id: number) => {
+        await axios.delete(CV_API.BASE_URL + "menu/" + id, ).then((response) => {
+            if (response.status !== 200) {
+                console.log("Error deleting menu item");
+                return;
+            }
 
-    //         fetchMenu();
-    //     })
-    // }
+            fetchMenu();
+        })
+    }
+
+    const editMenuItem =
 
     useEffect(() => {
         fetchMenu();
@@ -49,11 +52,11 @@ function MenuSelection() {
                     <TableHead>
                     <TableRow>
                         <TableCell>Retter</TableCell>
-                        <TableCell align="right"></TableCell>
-                        <TableCell align="right">Pris</TableCell>
-                         {/*<TableCell align="right">Synlighed</TableCell>*/}
-                         {/*<TableCell align="right"></TableCell>*/}
-                         {/*<TableCell align="right"></TableCell>*/}
+                        <TableCell align="center"></TableCell>
+                        <TableCell align="center">Pris</TableCell>
+                         <TableCell align="center">Synlighed</TableCell>
+                         <TableCell align="center">Beskrivelse</TableCell>
+                         <TableCell align="center"></TableCell>
                     </TableRow>
                     </TableHead>
                     <TableBody>
@@ -68,11 +71,22 @@ function MenuSelection() {
                                     <TableCell align='left' scope="item"><Avatar alt={item.name} src={"../../src/assets/MenuImages/" + item.imagePath} /></TableCell>
                                     <TableCell scope="item">{item.name}</TableCell>
                                     <TableCell align="right">{item.unitPrice + " kr."}</TableCell>
-                                    {/*<TableCell align="right">{item.isActive ? "Synlig" : "Usynlig"}</TableCell>*/}
-                                    {/*<TableCell align="right">*/}
-                                    {/*    <IconButton edge="end" aria-label="create"><CreateIcon /></IconButton>*/}
-                                    {/*    <IconButton edge="end" aria-label="delete"><DeleteIcon /></IconButton>*/}
-                                    {/*</TableCell>*/}
+                                    <TableCell align="right">{item.isActive ? "Synlig" : "Usynlig"}</TableCell>
+                                    <TableCell align="center" scope="item">
+                                        <TextField
+                                            disabled
+                                            multiline
+                                            defaultValue={item.description}
+                                            InputProps={{
+                                                readOnly: true,
+                                            }}
+                                        >
+                                        </TextField>
+                                    </TableCell>
+                                    <TableCell align="right">
+                                        <IconButton edge="end" aria-label="create"><CreateIcon /></IconButton>
+                                        <IconButton edge="end" aria-label="delete"><DeleteIcon /></IconButton>
+                                    </TableCell>
                                 </TableRow>
                             )}})}
                     </TableBody>
