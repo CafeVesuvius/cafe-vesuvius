@@ -9,14 +9,15 @@ export default function ContactList() {
     return (
         <div>
             <Banner title="Kontakt" highlight="Os" line1="Spørgsmål og andre henvendelser: kontakt@cafevesuvius.com (ikke til bordbestilling)." line2="Vi bestræber os på at besvare alle henvendelser indenfor 24 timer. Der må dog forventes længere svartid i weekender."/>
-            <div className="w-full h-full flex justify-center pt-10">
+            <div className="w-full h-full flex justify-center pt-20">
                 <Card sx={{ minWidth: 130, maxWidth: 300 }}>
                     <CardContent>
                         <Typography variant="h5" component="div">
                             Odense
                         </Typography>
                         <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                            Odensevej 123, 5000 Odense C
+                            Odensevej 123, 5000 Odense C <br/>
+                            +45 56125498
                         </Typography>
                         <Typography variant="body2">
                             Åbningstider: <br /> Mandag-Torsdag: 16:00-22:00 <br/> Fredag-Søndag: 12:00-23:00
