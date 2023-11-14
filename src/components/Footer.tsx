@@ -4,7 +4,7 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 export default function Footer(){
 
     return (
-            <footer className="bg-amber-800 backdrop-blur-md p-5 flex-grow mt-auto w-full relative">
+            <footer className="bg-footer-red backdrop-blur-md p-5 flex-grow mt-auto w-full relative text-white">
                 <div className="relative z-50 flex justify-evenly">
                     <div>
                         <nav>
@@ -33,7 +33,7 @@ export default function Footer(){
                         <p>
                             Odense <br/>
                             kontakt@cafevesuvius.com <br/>
-                            +45 56125498 <br/>
+                            +45 12345678 <br/>
                             Odensevej 123, 5000 Odense C <br/>
                             Åbningstider: <br /> Mandag-Torsdag: 16:00-22:00 <br/> Fredag-Søndag: 12:00-23:00
                         </p>

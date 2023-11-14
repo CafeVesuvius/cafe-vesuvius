@@ -17,7 +17,7 @@ export default function ContactList() {
                         </Typography>
                         <Typography sx={{ mb: 1.5 }} color="text.secondary">
                             Odensevej 123, 5000 Odense C <br/>
-                            +45 56125498
+                            +45 12345678
                         </Typography>
                         <Typography variant="body2">
                             Åbningstider: <br /> Mandag-Torsdag: 16:00-22:00 <br/> Fredag-Søndag: 12:00-23:00
