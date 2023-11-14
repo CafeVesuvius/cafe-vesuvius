@@ -7,6 +7,8 @@ import AboutPage from "./pages/AboutPage.tsx";
 import MenuPage from "./pages/MenuPage.tsx";
 import ReservationPage from "./pages/ReservationPage.tsx";
 import AdminPage from "./pages/AdminPage.tsx";
+import {useState} from "react";
+import HeaderAdmin from "./components/HeaderAdmin.tsx";
 
 const router = createBrowserRouter([
     {
@@ -37,10 +39,12 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
+    const [sessionCheck] = useState(localStorage.getItem('session'));
+
     return (
         <>
-        <Header />
-        <RouterProvider router={router} />
+            {sessionCheck ? <HeaderAdmin/> : <Header/>}
+            <RouterProvider router={router} />
         </>
     )
 }
