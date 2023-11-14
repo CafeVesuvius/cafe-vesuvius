@@ -39,7 +39,7 @@ function Reservation() {
     const [adults, setAdults] = React.useState(1);
     const [children, setChildren] = React.useState(0);
     const [date, setDate] = React.useState<Date>(new Date());
-    const [availableDays, setAvailableDays] = React.useState<Dayjs[]>([]);
+    const [availableDays, setAvailableDays] = React.useState<string[]>([]);
     const [month, setMonth] = React.useState<Dayjs>(dayjs());
 
     const setAdultsCount = (count: number) => {
@@ -61,19 +61,18 @@ function Reservation() {
     }
 
     const checkAvailableDates = (reservationTime: string) => {
-        return axios.get(CV_API.BASE_URL + "Reservation/IsAvailable/" + reservationTime, ).then((response: { status: number, data: { isAvailable: boolean, reason: string } }) => {
+        return axios.get(CV_API.BASE_URL + "Reservation/IsAvailableToday/" + reservationTime, ).then((response: { status: number, data: { isAvailable: boolean, reason: string } }) => {
             if (response.status !== 200) {
                 console.log("Error fetching menu");
                 return;
             }
-
             return response.data;
         })
     };
 
     useEffect(() => {
         const fetchAvailableDays = async () => {
-            const days: Dayjs[] = [];
+            const days: string[] = [];
             const start = month.startOf('month');
             const end = month.endOf('month');
 
@@ -81,7 +80,7 @@ function Reservation() {
                 const response = await checkAvailableDates(m.format('YYYY-MM-DDTHH:mm:ss'));
 
                 if (response.isAvailable) {
-                    days.push(m);
+                    days.push(m.toString());
                 }
             }
 
@@ -170,7 +169,7 @@ function Reservation() {
                                             day: ServerDay,
                                         }}
                                         shouldDisableDate={(day) => {
-                                            return dayjs().isAfter(day) || !(availableDays.indexOf(day) < 0);
+                                            return dayjs().isAfter(day) || (availableDays.indexOf(day.toString()) < 0);
                                         }}
                                         disablePast={true}
                                         disableHighlightToday={true}
