@@ -43,6 +43,7 @@ export default function SignIn(props) {
                 await axios.post(CV_API.BASE_URL +"Authentication", {userName: data.get('username'), password: data.get('password')}).then((res) => {
                     if(res.status == 200) {
                         props.setIsSignedIn(true);
+                        localStorage.setItem('session', JSON.stringify(res.data));
                     }
                 })
         }
