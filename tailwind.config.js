@@ -11,6 +11,7 @@ export default {
     extend: {
       colors: {
         'vesuvius-red':'#C91713',
+        'footer-red': '#811c0e'
       },
     },
   },
