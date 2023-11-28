@@ -43,7 +43,8 @@ function Reservation() {
     const [month, setMonth] = React.useState<Dayjs>(dayjs());
 
     const tomorrowDate = dayjs().add(1, 'day').startOf('day');
-    const initialDate = tomorrowDate.add(tomorrowDate.day() >= 5 ? 12 : 16, 'hour').toDate();
+    const isWeekend = tomorrowDate.day() >= 5 || tomorrowDate.day() == 0;
+    const initialDate = tomorrowDate.add(isWeekend ? 12 : 16, 'hour').toDate();
 
     const [date, setDate] = React.useState<Date>(initialDate);
     const [time, setTime] = React.useState<Date>(date); // [date, setDate
@@ -261,7 +262,7 @@ function Reservation() {
                                     shouldDisableTime={(value, view) => {
                                         const timeString = value.toDate().toLocaleTimeString('da-DK', {hour: '2-digit', minute: '2-digit'});
                                         const day = dayjs(date).day();
-                                        return view === 'hours' && (value.hour() < (day >= 5 ? 12 : 16) || value.hour() > (day >= 5 ? 22 : 21)) || (availableTimes.indexOf(timeString) < 0);
+                                        return view === 'hours' && (value.hour() < (day >= 5 || day == 0 ? 12 : 16) || value.hour() > (day >= 5 || day == 0 ? 22 : 21)) || (availableTimes.indexOf(timeString) < 0);
                                     }}
                                     onChange={(value) => {
                                         const dateValue = date;
