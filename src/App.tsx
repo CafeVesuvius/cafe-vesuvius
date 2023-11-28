@@ -42,11 +42,12 @@ function App() {
     const [sessionCheck] = useState(localStorage.getItem('session'));
 
     return (
-        <>
-            {sessionCheck ? <HeaderAdmin/> : <Header/>}
-            <RouterProvider router={router} />
-        </>
+    <>
+        {sessionCheck ? <HeaderAdmin/> : <Header/>}
+        <RouterProvider router={router} />
+    </>
     )
 }
+
 
 export default App
