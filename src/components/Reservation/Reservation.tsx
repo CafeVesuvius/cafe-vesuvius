@@ -126,11 +126,10 @@ function Reservation() {
                 const response = await checkAvailableDates(m.format('YYYY-MM-DDTHH:mm:ss'));
 
                 if (response.isAvailable) {
-                    list.push(m.toString());
+                    list.push(m.toDate().toDateString());
                 }
             }
 
-            console.log(list);
             setAvailableDays(list);
         };
 
@@ -235,7 +234,7 @@ function Reservation() {
                                         day: ServerDay,
                                     }}
                                     shouldDisableDate={(day) => {
-                                        return dayjs().isAfter(day) || (availableDays.indexOf(day.toString()) < 0);
+                                        return dayjs().isAfter(day) || (availableDays.indexOf(day.toDate().toDateString()) < 0);
                                     }}
                                     disablePast={true}
                                     disableHighlightToday={true}
