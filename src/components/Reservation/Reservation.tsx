@@ -38,11 +38,15 @@ function ServerDay(props: PickersDayProps<Dayjs> & { highlightedDays?: number[] 
 function Reservation() {
     const [adults, setAdults] = React.useState(1);
     const [children, setChildren] = React.useState(0);
-    const [date, setDate] = React.useState<Date>(dayjs().add(1, 'day').startOf('day').add(10, 'hour').toDate());
-    const [time, setTime] = React.useState<Date>(date); // [date, setDate
     const [availableTimes, setAvailableTimes] = React.useState<string[]>([]);
     const [availableDays, setAvailableDays] = React.useState<string[]>([]);
     const [month, setMonth] = React.useState<Dayjs>(dayjs());
+
+    const tomorrowDate = dayjs().add(1, 'day').startOf('day');
+    const initialDate = tomorrowDate.add(tomorrowDate.day() >= 5 ? 12 : 16, 'hour').toDate();
+
+    const [date, setDate] = React.useState<Date>(initialDate);
+    const [time, setTime] = React.useState<Date>(date); // [date, setDate
 
     const handleSubmit = useCallback((event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
