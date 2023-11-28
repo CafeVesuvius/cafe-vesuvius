@@ -11,9 +11,11 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import {createTheme, ThemeProvider} from '@mui/material/styles';
 import axios from 'axios';
 import {CV_API} from "../config";
+import {useState} from "react";
+import {Backdrop, CircularProgress} from "@mui/material";
 
 function Copyright(props: any) {
     return (
@@ -31,28 +33,47 @@ function Copyright(props: any) {
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
+var savedUsername = localStorage.getItem("user");
+var savedPassword = localStorage.getItem("pass");
+
+var checkboxCheckUncheck = JSON.parse(localStorage.getItem("remember"));
+
+const handleRememberLogin = () => {
+    if (!checkboxCheckUncheck) {
+        localStorage.setItem("remember", JSON.stringify(true));
+    } else {
+        localStorage.removeItem("remember");
+    }
+}
+
 export default function SignIn(props) {
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
 
-        if(!data.get('username') || !data.get('password')) {
+        if (!data.get('username') || !data.get('password')) {
             alert('Du mangler at indtaste oplysninger.');
-        }
-        else {
-                await axios.post(CV_API.BASE_URL +"Authentication", {userName: data.get('username'), password: data.get('password')}).then((res) => {
-                    if(res.status == 200) {
+        } else {
+            try {
+                await axios.post(CV_API.BASE_URL + "Authentication", {userName: data.get('username'), password: data.get('password')}).then((res) => {
+                    if (res.status == 200) {
                         props.setIsSignedIn(true);
                         localStorage.setItem('session', JSON.stringify(res.data));
+
+                        localStorage.setItem('user', data.get('username') as string);
+                        localStorage.setItem('pass', data.get('password') as string);
                     }
                 })
+            } catch (error) {
+                alert(error);
+            }
         }
     };
 
     return (
         <ThemeProvider theme={defaultTheme}>
             <Container component="main" maxWidth="xs">
-                <CssBaseline />
+                <CssBaseline/>
                 <Box
                     sx={{
                         marginTop: 8,
@@ -61,14 +82,16 @@ export default function SignIn(props) {
                         alignItems: 'center',
                     }}
                 >
-                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                        <LockOutlinedIcon />
+                    <Avatar sx={{m: 1, bgcolor: 'warning.main'}}>
+                        <LockOutlinedIcon/>
                     </Avatar>
                     <Typography component="h1" variant="h5">
                         Admin Login
                     </Typography>
-                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{mt: 1}}>
                         <TextField
+                            defaultValue={savedUsername}
+                            color="warning"
                             margin="normal"
                             required
                             fullWidth
@@ -79,6 +102,8 @@ export default function SignIn(props) {
                             autoFocus
                         />
                         <TextField
+                            defaultValue={savedPassword}
+                            color="warning"
                             margin="normal"
                             required
                             fullWidth
@@ -89,14 +114,16 @@ export default function SignIn(props) {
                             autoComplete="current-password"
                         />
                         <FormControlLabel
-                            control={<Checkbox value="remember" color="primary" />}
+                            control={<Checkbox color="warning" defaultChecked={JSON.parse(checkboxCheckUncheck)}
+                                               onClick={handleRememberLogin}/>}
                             label="Husk mig"
                         />
                         <Button
+                            color="error"
                             type="submit"
                             fullWidth
                             variant="contained"
-                            sx={{ mt: 3, mb: 2 }}
+                            sx={{mt: 3, mb: 2}}
                         >
                             Sign In
                         </Button>
@@ -109,7 +136,7 @@ export default function SignIn(props) {
                         </Grid>
                     </Box>
                 </Box>
-                <Copyright sx={{ mt: 8, mb: 4 }} />
+                <Copyright sx={{mt: 8, mb: 4}}/>
             </Container>
         </ThemeProvider>
     );
