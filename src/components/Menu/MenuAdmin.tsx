@@ -92,31 +92,21 @@ function MenuSelection() {
         }
     }
 
-    var a = false;
-    const handleShowHideNewMenuItem = {
-        switch(a){
-            case true:
-                a = false;
-                break;
-
-            default:
-                a = true;
-                break;
-        }
+    var showHide = false;
+    const handleShowHideNewMenuItem = () => {
+        showHide ? true : false;
     }
 
     const handleCreateMenuItem = async (itemName: string, price: number, active: boolean, desc: string, menu: number) => {
 
     }
 
-    const[]
-
     return (
         <>
             <div className="container mx-auto">
-                <Button variant="contained">Ny menu item</Button>
+                <Button variant="contained" onClick={handleShowHideNewMenuItem}>Ny menu item</Button>
                 <br/><br/>
-                <FormControl defaultValue="" required>
+                <FormControl sx={{ display: showHide }} defaultValue="" required>
                     <TextField
                         color="warning"
                         label="Madrettens navn"
@@ -128,7 +118,7 @@ function MenuSelection() {
                         type="number"
                     />
 
-                    <FormControlLabel control={<Switch defaultChecked color="warning" />} label="Tilgængelighed" />
+                    <FormControlLabel control={<Switch defaultChecked color="warning"/>} label="Tilgængelighed"/>
 
                     <TextField
                         multiline
