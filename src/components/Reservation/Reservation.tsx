@@ -39,6 +39,7 @@ function Reservation() {
     const [adults, setAdults] = React.useState(1);
     const [children, setChildren] = React.useState(0);
     const [date, setDate] = React.useState<Date>(dayjs().add(1, 'day').startOf('day').add(10, 'hour').toDate());
+    const [time, setTime] = React.useState<Date>(date); // [date, setDate
     const [availableTimes, setAvailableTimes] = React.useState<string[]>([]);
     const [availableDays, setAvailableDays] = React.useState<string[]>([]);
     const [month, setMonth] = React.useState<Dayjs>(dayjs());
@@ -49,7 +50,7 @@ function Reservation() {
             "name": (document.getElementById("name") as HTMLInputElement).value,
             "phone": (document.getElementById("phone") as HTMLInputElement).value,
             "people": adults + children,
-            "time": date.toISOString(),
+            "time": time.toISOString(),
         });
 
         const config = {
@@ -146,7 +147,7 @@ function Reservation() {
                 const response = await checkAvailableTimes(m.format('YYYY-MM-DDTHH:mm:ss'));
 
                 if (response.isAvailable) {
-                    list.push(m.toDate().toString());
+                    list.push(m.toDate().toLocaleTimeString('da-DK', {hour: '2-digit', minute: '2-digit'}));
                 }
             }
 
@@ -239,13 +240,7 @@ function Reservation() {
                                     disablePast={true}
                                     disableHighlightToday={true}
                                     onChange={(value) => {
-                                        const dateValue = date;
-                                        const timeValue = value['$d'];
-
-                                        dateValue.setDate(timeValue.getDate());
-                                        dateValue.setMonth(timeValue.getMonth());
-                                        dateValue.setFullYear(timeValue.getFullYear());
-                                        setDate(dateValue);
+                                        setDate(value.toDate())
                                     }}
                                     onMonthChange={(newMonth) => {
                                         setMonth(newMonth)
@@ -258,11 +253,11 @@ function Reservation() {
                                     <div className="flex justify-center my-auto me-5 opacity-75">
                                         <ArrowDropDownIcon fontSize="medium"/>
                                     </div>
-
                                 </div>
                                 <DigitalClock
                                     shouldDisableTime={(value, view) => {
-                                        return view === 'hours' && value.hour() < 10 || (availableTimes.indexOf(date.toString()) < 0);
+                                        const timeString = value.toDate().toLocaleTimeString('da-DK', {hour: '2-digit', minute: '2-digit'});
+                                        return view === 'hours' && value.hour() < 10 || (availableTimes.indexOf(timeString) < 0);
                                     }}
                                     onChange={(value) => {
                                         const dateValue = date;
@@ -271,7 +266,7 @@ function Reservation() {
                                         dateValue.setHours(timeValue.getHours() + 1);
                                         dateValue.setMinutes(timeValue.getMinutes());
                                         dateValue.setSeconds(timeValue.getSeconds());
-                                        setDate(dateValue);
+                                        setTime(dateValue);
                                     }}
                                     skipDisabled={true}
                                     ampm={false}
