@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useCallback} from 'react';
 import {IconButton} from "@mui/material";
 import AddCircleOutlineTwoToneIcon from '@mui/icons-material/AddCircleOutlineTwoTone';
 import RemoveCircleOutlineTwoTone from '@mui/icons-material/RemoveCircleOutlineTwoTone';
@@ -38,24 +38,37 @@ function ServerDay(props: PickersDayProps<Dayjs> & { highlightedDays?: number[] 
 function Reservation() {
     const [adults, setAdults] = React.useState(1);
     const [children, setChildren] = React.useState(0);
-    const [date, setDate] = React.useState<Date>(new Date());
+    const [date, setDate] = React.useState<Date>(dayjs().add(1, 'day').startOf('day').add(10, 'hour').toDate());
     const [availableDays, setAvailableDays] = React.useState<string[]>([]);
     const [month, setMonth] = React.useState<Dayjs>(dayjs());
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = useCallback((event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const data = JSON.stringify({
-            name: (document.getElementById("name") as HTMLInputElement).value,
-            people: adults + children,
-            time: date.toISOString(),
+            "name": (document.getElementById("name") as HTMLInputElement).value,
+            "phone": (document.getElementById("phone") as HTMLInputElement).value,
+            "people": adults + children,
+            "time": date.toISOString(),
         });
 
-        axios.post(CV_API.BASE_URL + "Reservation", data, {}).then(response => {
-            console.log(response);
-        }).catch(error => {
-            console.log(error)
-        });
-    };
+        const config = {
+            method: 'post',
+            maxBodyLength: Infinity,
+            url: CV_API.BASE_URL + "reservation",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            data : data
+        };
+
+        axios.request(config)
+            .then((response) => {
+                console.log(JSON.stringify(response.data));
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }, [adults, children, date]);
 
     const setAdultsCount = (count: number) => {
         setAdults(Math.min(Math.max(count, 1), 10 - children));
@@ -190,8 +203,14 @@ function Reservation() {
                                     }}
                                     disablePast={true}
                                     disableHighlightToday={true}
-                                    onChange={(newDate) => {
-                                        setDate(newDate?.toDate() || new Date())
+                                    onChange={(value) => {
+                                        const dateValue = date;
+                                        const timeValue = value['$d'];
+
+                                        dateValue.setDate(timeValue.getDate());
+                                        dateValue.setMonth(timeValue.getMonth());
+                                        dateValue.setFullYear(timeValue.getFullYear());
+                                        setDate(dateValue);
                                     }}
                                     onMonthChange={(newMonth) => {
                                         setMonth(newMonth)
@@ -212,7 +231,11 @@ function Reservation() {
                                     }
                                     onChange={(value) => {
                                         const dateValue = date;
-                                        dateValue.setTime(value.toDate().getTime());
+                                        const timeValue = value['$d'];
+
+                                        dateValue.setHours(timeValue.getHours()+1);
+                                        dateValue.setMinutes(timeValue.getMinutes());
+                                        dateValue.setSeconds(timeValue.getSeconds());
                                         setDate(dateValue);
                                     }}
                                     skipDisabled={true}
