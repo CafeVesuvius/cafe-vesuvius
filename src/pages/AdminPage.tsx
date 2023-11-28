@@ -8,12 +8,7 @@ export default function AdminPage() {
     var sessionCheck = localStorage.getItem('session');
 
     if (sessionCheck !== null) {
-        //console.log(isSignedIn);
-        return (
-            <>
-                <MenuAdmin/>
-            </>
-        )
+        window.location.replace('/menu');
     } else {
         return (
             <SignIn setIsSignedIn={setIsSignedIn} />
