@@ -39,6 +39,7 @@ function Reservation() {
     const [adults, setAdults] = React.useState(1);
     const [children, setChildren] = React.useState(0);
     const [date, setDate] = React.useState<Date>(dayjs().add(1, 'day').startOf('day').add(10, 'hour').toDate());
+    const [availableTimes, setAvailableTimes] = React.useState<string[]>([]);
     const [availableDays, setAvailableDays] = React.useState<string[]>([]);
     const [month, setMonth] = React.useState<Dayjs>(dayjs());
 
@@ -58,7 +59,7 @@ function Reservation() {
             headers: {
                 'Content-Type': 'application/json'
             },
-            data : data
+            data: data
         };
 
         axios.request(config)
@@ -89,7 +90,7 @@ function Reservation() {
     }
 
     const checkAvailableDates = (reservationTime: string) => {
-        return axios.get(CV_API.BASE_URL + "Reservation/IsAvailableToday/" + reservationTime,).then((response: {
+        return axios.get(CV_API.BASE_URL + "Reservation/IsAvailableToday/" + reservationTime).then((response: {
             status: number,
             data: { isAvailable: boolean, reason: string }
         }) => {
@@ -101,9 +102,22 @@ function Reservation() {
         })
     };
 
+    const checkAvailableTimes = (reservationTime: string) => {
+        return axios.get(CV_API.BASE_URL + "Reservation/IsAvailableAtTime/" + reservationTime).then((response: {
+            status: number,
+            data: { isAvailable: boolean, reason: string }
+        }) => {
+            if (response.status !== 200) {
+                console.log("Error fetching menu");
+                return;
+            }
+            return response.data;
+        })
+    }
+
     useEffect(() => {
         const fetchAvailableDays = async () => {
-            const days: string[] = [];
+            const list: string[] = [];
             const start = month.startOf('month');
             const end = month.endOf('month');
 
@@ -111,15 +125,36 @@ function Reservation() {
                 const response = await checkAvailableDates(m.format('YYYY-MM-DDTHH:mm:ss'));
 
                 if (response.isAvailable) {
-                    days.push(m.toString());
+                    list.push(m.toString());
                 }
             }
 
-            setAvailableDays(days);
+            console.log(list);
+            setAvailableDays(list);
         };
 
         fetchAvailableDays();
     }, [month]);
+
+    useEffect(() => {
+        const fetchAvailableTimes = async () => {
+            const list: string[] = [];
+            const start = dayjs(date).startOf('day');
+            const end = dayjs(date).endOf('day');
+
+            for (let m = start; m.isBefore(end); m = m.add(30, 'minute')) {
+                const response = await checkAvailableTimes(m.format('YYYY-MM-DDTHH:mm:ss'));
+
+                if (response.isAvailable) {
+                    list.push(m.toDate().toString());
+                }
+            }
+
+            setAvailableTimes(list);
+        };
+
+        fetchAvailableTimes();
+    }, [date])
 
     return (
         <div className="container mx-auto pt-16 pb-16 text-center bg-gray-100 border border-b border-neutral-100">
@@ -226,14 +261,14 @@ function Reservation() {
 
                                 </div>
                                 <DigitalClock
-                                    shouldDisableTime={(value, view) =>
-                                        view === 'hours' && value.hour() < 10 || (value.hour() > 22)
-                                    }
+                                    shouldDisableTime={(value, view) => {
+                                        return view === 'hours' && value.hour() < 10 || (availableTimes.indexOf(date.toString()) < 0);
+                                    }}
                                     onChange={(value) => {
                                         const dateValue = date;
                                         const timeValue = value['$d'];
 
-                                        dateValue.setHours(timeValue.getHours()+1);
+                                        dateValue.setHours(timeValue.getHours() + 1);
                                         dateValue.setMinutes(timeValue.getMinutes());
                                         dateValue.setSeconds(timeValue.getSeconds());
                                         setDate(dateValue);
