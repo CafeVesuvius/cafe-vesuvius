@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import {styled} from "@mui/material";
 import Toolbar from "@mui/material/Toolbar";
+import { useNavigate } from 'react-router-dom';
 
 const Topbar = styled(Toolbar)(() => ({
     alignItems: 'flex-center',
@@ -11,6 +12,11 @@ const Topbar = styled(Toolbar)(() => ({
         minHeight: 90,
     },
 }));
+
+const startLogoutProcess = () => {
+    window.location.replace('/');
+    localStorage.removeItem('session');
+}
 
 function Header() {
     return (
@@ -31,7 +37,7 @@ function Header() {
                                 </a>
                                 <a className="inline-block rounded-lg py-1 px-2 text-sm text-slate-700 hover:bg-slate-100 hover:text-slate-900" href="/menu">Menukort</a>
                                 <a className="inline-block rounded-lg py-1 px-2 text-sm text-slate-700 hover:bg-slate-100 hover:text-slate-900" href="/">Registrer</a>
-                                <a className="inline-block rounded-lg py-1 px-2 text-sm text-slate-700 hover:bg-slate-100 hover:text-slate-900" href="/" >Logout</a>
+                                <a className="inline-block rounded-lg py-1 px-2 text-sm text-slate-700 hover:bg-slate-100 hover:text-slate-900" style={{ cursor: 'pointer' }} onClick={startLogoutProcess}>Logout</a>
                             </div>
 
                             <div className="flex items-center gap-x-5 md:gap-x-8">
