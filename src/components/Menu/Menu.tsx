@@ -9,6 +9,9 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Avatar from '@mui/material/Avatar';
+// import { IconButton } from '@mui/material';
+// import CreateIcon from '@mui/icons-material/Create';
+// import DeleteIcon from '@mui/icons-material/Delete';
 
 function MenuSelection() {
     const [menuItems, setMenuItems] = useState([]);
@@ -48,8 +51,9 @@ function MenuSelection() {
                         <TableCell>Retter</TableCell>
                         <TableCell align="right"></TableCell>
                         <TableCell align="right">Pris</TableCell>
-                        {/* <TableCell align="right">Synlighed</TableCell> */}
-                        {/* <TableCell align="right"></TableCell> */}
+                         {/*<TableCell align="right">Synlighed</TableCell>*/}
+                         {/*<TableCell align="right"></TableCell>*/}
+                         {/*<TableCell align="right"></TableCell>*/}
                     </TableRow>
                     </TableHead>
                     <TableBody>
@@ -64,11 +68,11 @@ function MenuSelection() {
                                     <TableCell align='left' scope="item"><Avatar alt={item.name} src={"../../src/assets/MenuImages/" + item.imagePath} /></TableCell>
                                     <TableCell scope="item">{item.name}</TableCell>
                                     <TableCell align="right">{item.unitPrice + " kr."}</TableCell>
-                                    {/* <TableCell align="right">{item.isActive ? "Synlig" : "Usynlig"}</TableCell> */}
-                                    {/* <TableCell align="right">
-                                        <IconButton edge="end" aria-label="create" onClick={() => {setEditor(item)}}><CreateIcon /></IconButton>
-                                        <IconButton edge="end" aria-label="delete" onClick={() => {deleteMenuItem(item.id)}}><DeleteIcon /></IconButton>
-                                    </TableCell> */}
+                                    {/*<TableCell align="right">{item.isActive ? "Synlig" : "Usynlig"}</TableCell>*/}
+                                    {/*<TableCell align="right">*/}
+                                    {/*    <IconButton edge="end" aria-label="create"><CreateIcon /></IconButton>*/}
+                                    {/*    <IconButton edge="end" aria-label="delete"><DeleteIcon /></IconButton>*/}
+                                    {/*</TableCell>*/}
                                 </TableRow>
                             )}})}
                     </TableBody>
