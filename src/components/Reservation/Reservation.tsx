@@ -260,7 +260,8 @@ function Reservation() {
                                 <DigitalClock
                                     shouldDisableTime={(value, view) => {
                                         const timeString = value.toDate().toLocaleTimeString('da-DK', {hour: '2-digit', minute: '2-digit'});
-                                        return view === 'hours' && value.hour() < 10 || (availableTimes.indexOf(timeString) < 0);
+                                        const day = dayjs(date).day();
+                                        return view === 'hours' && (value.hour() < (day >= 5 ? 12 : 16) || value.hour() > (day >= 5 ? 22 : 21)) || (availableTimes.indexOf(timeString) < 0);
                                     }}
                                     onChange={(value) => {
                                         const dateValue = date;
