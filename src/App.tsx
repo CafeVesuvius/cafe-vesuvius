@@ -1,9 +1,11 @@
 import './App.css'
 import Header from "./components/Header.tsx";
+import Footer from "./components/Footer.tsx";
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import Home from "./pages/Home.tsx";
 import ErrorPage from "./pages/ErrorPage.tsx";
 import AboutPage from "./pages/AboutPage.tsx";
+import ContactPage from "./pages/ContactPage.tsx";
 import MenuPage from "./pages/MenuPage.tsx";
 import ReservationPage from "./pages/ReservationPage.tsx";
 import AdminPage from "./pages/AdminPage.tsx";
@@ -19,6 +21,11 @@ const router = createBrowserRouter([
     {
         path: "/about",
         element: <AboutPage />,
+        errorElement: <ErrorPage />
+    },
+    {
+        path: "/contact",
+        element: <ContactPage />,
         errorElement: <ErrorPage />
     },
     {
@@ -45,6 +52,9 @@ function App() {
     <>
         {sessionCheck ? <HeaderAdmin/> : <Header/>}
         <RouterProvider router={router} />
+        <br/>
+        <br/>
+        <Footer />
     </>
     )
 }
