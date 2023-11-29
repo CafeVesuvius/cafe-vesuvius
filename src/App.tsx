@@ -11,6 +11,7 @@ import ReservationPage from "./pages/ReservationPage.tsx";
 import AdminPage from "./pages/AdminPage.tsx";
 import {useState} from "react";
 import HeaderAdmin from "./components/HeaderAdmin.tsx";
+import OverviewPage from "./pages/OverviewPage.tsx";
 
 const router = createBrowserRouter([
     {
@@ -36,6 +37,11 @@ const router = createBrowserRouter([
     {
         path: "/reservation",
         element: <ReservationPage />,
+        errorElement: <ErrorPage />
+    },
+    {
+        path: "/overview",
+        element: <OverviewPage />,
         errorElement: <ErrorPage />
     },
     {
