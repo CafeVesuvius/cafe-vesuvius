@@ -100,7 +100,6 @@ function MenuSelection() {
     const handleCreateMenuItem = async () => {
         if (confirm("Oprette madretten?")) {
             try {
-                //setCreatedMenuItemAvailability(JSON.parse(switchToggleString));
                 let data = JSON.stringify({
                     "name": createdMenuItemName,
                     "description": createdMenuItemDescription,
