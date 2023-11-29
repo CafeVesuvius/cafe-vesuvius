@@ -14,8 +14,6 @@ import Container from '@mui/material/Container';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 import axios from 'axios';
 import {CV_API} from "../config";
-import {useState} from "react";
-import {Backdrop, CircularProgress} from "@mui/material";
 
 function Copyright(props: any) {
     return (
@@ -35,7 +33,6 @@ const defaultTheme = createTheme();
 
 var savedUsername = localStorage.getItem("user");
 var savedPassword = localStorage.getItem("pass");
-
 var checkboxCheckUncheck = JSON.parse(localStorage.getItem("remember"));
 
 const handleRememberLogin = () => {
@@ -43,6 +40,8 @@ const handleRememberLogin = () => {
         localStorage.setItem("remember", JSON.stringify(true));
     } else {
         localStorage.removeItem("remember");
+        localStorage.removeItem("user");
+        localStorage.removeItem("pass");
     }
 }
 
